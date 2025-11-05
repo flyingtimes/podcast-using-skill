@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(podcast-writer)",
+      "Bash(mkdir:*)",
+      "Bash(time:*)",
+      "Bash(powershell \"Get-Date -Format ''yyyyMMdd_HHmmss''\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

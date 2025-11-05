@@ -1,0 +1,12 @@
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "7b2c2ff6d9f847d4889e4079f4e0f870.ry4MqyokOIhgGTaw",
+    "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
+    "ANTHROPIC_MODEL": "glm-4.6",
+    "API_TIMEOUT_MS": "3000000"
+  },
+  "feedbackSurveyState": {
+    "lastShownTime": 1760369048214
+  },
+  "alwaysThinkingEnabled": true
+}

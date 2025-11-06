@@ -4,7 +4,14 @@
       "Skill(podcast-writer)",
       "Bash(mkdir:*)",
       "Bash(time:*)",
-      "Bash(powershell \"Get-Date -Format ''yyyyMMdd_HHmmss''\")"
+      "Bash(powershell \"Get-Date -Format ''yyyyMMdd_HHmmss''\")",
+      "Bash(python:*)",
+      "Skill(xlsx)",
+      "Bash(nul:*)",
+      "Bash(excel_analysis.json)",
+      "Bash(del:*)",
+      "Skill(kpi-analyst)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

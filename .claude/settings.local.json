@@ -11,7 +11,8 @@
       "Bash(excel_analysis.json)",
       "Bash(del:*)",
       "Skill(kpi-analyst)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []

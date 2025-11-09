@@ -12,7 +12,15 @@
       "Bash(del:*)",
       "Skill(kpi-analyst)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Skill(translate)",
+      "Skill(vision)",
+      "Bash(uv sync:*)",
+      "Bash(uv run python:*)",
+      "Bash(dir:*)",
+      "Bash(uv add:*)",
+      "Skill(zhipu-search)",
+      "Bash(powershell:*)"
     ],
     "deny": [],
     "ask": []

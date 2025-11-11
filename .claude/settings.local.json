@@ -20,7 +20,8 @@
       "Bash(dir:*)",
       "Bash(uv add:*)",
       "Skill(zhipu-search)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "mcp__chrome-devtools__take_snapshot"
     ],
     "deny": [],
     "ask": []

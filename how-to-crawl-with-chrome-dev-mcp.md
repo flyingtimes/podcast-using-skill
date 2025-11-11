@@ -15,13 +15,7 @@ xcopy  "c:\Users\13802\AppData\Local\Google\Chrome\User Data\" .\userdata /S
 ### 二、开启新浏览器实例
 #### macos
 ```bash
-/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \     
-  --remote-debugging-port=9222 \
-  --user-data-dir="$PWD/userdata" \
-  --no-first-run \
-  --no-default-browser-check \
-  --disable-popup-blocking \
-  --start-maximized
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 --user-data-dir="$PWD/userdata"   --no-first-run   --no-default-browser-check --disable-popup-blocking --proxy-server="http://127.0.0.1:1087" --start-maximized
 ```
 #### windows
 ```
@@ -57,7 +51,7 @@ claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
 > 
 为了过程的流畅，需要打开claude的选项
 ```
-claude --dangerously-skip-permissions -p "打开https://www.theatlantic.com/latest/,找到最新的3篇文章和链接，并逐一打开链接获取正文内容，写入output/文件夹中，生成的文件名为{title}.txt"
+claude --dangerously-skip-permissions -p "打开https://www.theatlantic.com/latest/,找到最新的3篇文章,参考@README_API.md的指引，将标题、副标题、作者、url、记录时间通过接口写入"
 ```
 翻译任务
 ```

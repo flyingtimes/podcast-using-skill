@@ -7,7 +7,7 @@ cp -R ~/Library/Application\ Support/Google/Chrome/Default ./userdata
 ```
 windows
 ```
-xcopy  "c:\Users\13802\AppData\Local\Google\Chrome\User Data\" .\userdata /S
+xcopy  "c:\Users\13802\AppData\Local\Google\Chrome\User Data\Default" "C:\\Users\\13802\\code\\podcast-using-skill\\userdata\\Default" /S
 
 ```
 > 注意：一定要先关闭所有chrome浏览器下操作，否则复制到内容是不完整的
@@ -18,20 +18,22 @@ xcopy  "c:\Users\13802\AppData\Local\Google\Chrome\User Data\" .\userdata /S
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 --user-data-dir="$PWD/userdata"   --no-first-run   --no-default-browser-check --disable-popup-blocking --proxy-server="http://127.0.0.1:1087" --start-maximized
 ```
 #### windows
+首先检查后台进程是否存在chrome进程，如果存在则先杀掉chrome进程。然后通过下面的操作启动新的浏览器
 ```
-"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --proxy-server="http://127.0.0.1:1087"  --user-data-dir=.\userdata
+"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" --remote-debugging-port=9222 --proxy-server="http://127.0.0.1:1087"  --user-data-dir="C:\\Users\\13802\\code\\podcast-using-skill\userdata"
 
 ```
 这个时候命令行会返回：
 ```
 DevTools listening on ws://127.0.0.1:9222/devtools/browser/{session-id}
 ```
+检查9222端口是否正常开启
 ## 给claud code 安装chrome-dev-mcp插件
 ```
-claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
+claude mcp add chrome-devtools -s project npx chrome-devtools-mcp@latest
 ```
-安装完以后，会给你的个人目录下的claude配置文件添加一下内容
-```.claude.json 
+安装完以后，会给项目目录下的.mcp.json配置文件添加一下内容
+```.mcp.json 
 "mcpServers": {
     "chrome-devtools": {
       "type": "stdio",

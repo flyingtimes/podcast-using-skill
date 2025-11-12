@@ -15,7 +15,7 @@ class EssayData(BaseModel):
     title: str
     subtitle: Optional[str] = None
     author: Optional[str] = None
-    url: Optional[str] = None
+    url: str
     content: Optional[str] = None
     entry_time: Optional[str] = None
 
@@ -26,6 +26,14 @@ class EssayResponse(BaseModel):
     success_count: int
     skipped_count: int
     successful_titles: List[str]
+    message: str
+
+class EssayUpdate(BaseModel):
+    url: str
+    content: str
+
+class UpdateResponse(BaseModel):
+    success: bool
     message: str
 
 @app.post("/api/essays", response_model=EssayResponse)
@@ -56,9 +64,9 @@ async def add_essays(request: EssayRequest):
         try:
             success = db_manager.add_essay(
                 title=essay.title,
+                url=essay.url,
                 subtitle=essay.subtitle,
                 author=essay.author,
-                url=essay.url,
                 content=essay.content,
                 entry_time=entry_time
             )
@@ -104,6 +112,32 @@ async def get_all_essays():
         }
     finally:
         session.close()
+
+@app.put("/api/essays/content", response_model=UpdateResponse)
+async def update_essay_content(update: EssayUpdate):
+    """
+    更新文章内容
+
+    - **url**: 文章URL
+    - **content**: 文章内容
+    """
+    try:
+        success = db_manager.update_essay_content(update.url, update.content)
+        if success:
+            return UpdateResponse(
+                success=True,
+                message="文章内容更新成功"
+            )
+        else:
+            return UpdateResponse(
+                success=False,
+                message="未找到对应URL的文章"
+            )
+    except Exception as e:
+        return UpdateResponse(
+            success=False,
+            message=f"更新失败: {str(e)}"
+        )
 
 @app.get("/api/health")
 async def health_check():

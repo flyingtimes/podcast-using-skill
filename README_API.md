@@ -6,7 +6,7 @@
 
 ## 安装和运行
 
-### 1. 安装依赖（使用 uv）
+### 1. 首先安装依赖（使用 uv）
 
 ```bash
 uv sync
@@ -33,7 +33,7 @@ python test_essay_manager.py
 
 **POST** `/api/essays`
 
-批量添加文章到数据库，自动检查重复标题。
+批量添加文章到数据库，自动检查重复URL。
 
 #### 请求格式
 
@@ -42,8 +42,10 @@ python test_essay_manager.py
   "essays": [
     {
       "title": "文章标题",
+      "url": "文章链接（必填）",
       "subtitle": "文章副标题（可选）",
       "author": "作者姓名（可选）",
+      "content": "文章内容（可选）",
       "entry_time": "2024-01-15 10:30:00"
     }
   ]
@@ -75,12 +77,16 @@ curl -X POST "http://localhost:8000/api/essays" \
         "title": "Python编程入门",
         "subtitle": "零基础学习Python",
         "author": "张三",
+        "url": "https://example.com/python-tutorial",
+        "content": "这是一篇关于Python编程的入门教程...",
         "entry_time": "2024-01-15 10:30:00"
       },
       {
         "title": "数据结构与算法",
         "subtitle": "计算机科学基础",
         "author": "李四",
+        "url": "https://example.com/data-structures",
+        "content": "本文介绍基础的数据结构和算法概念...",
         "entry_time": "2024-01-16 14:20:00"
       }
     ]
@@ -128,21 +134,23 @@ curl -X POST "http://localhost:8000/api/essays" \
 
 ## 数据库
 
-系统使用 SQLite 数据库，数据库文件 `essays.db` 会在首次运行时自动创建在 `src` 目录下。
+系统使用 SQLite 数据库，数据库文件 `essays.db` 会在首次运行时自动创建在 `local_db` 目录下。
 
 ### 文章表结构
 
 - `id`: 主键，自动递增
-- `title`: 文章标题（唯一，不允许重复）
-- `subtitle`: 文章副标题
-- `author`: 作者姓名
-- `entry_time`: 录入时间
-- `created_at`: 记录创建时间（自动生成）
+- `title`: 文章标题（必填，最大长度500字符，建立索引）
+- `url`: 文章链接（必填，文本类型，唯一约束，建立索引）
+- `subtitle`: 文章副标题（可选，文本类型）
+- `author`: 作者姓名（可选，最大长度200字符）
+- `content`: 文章内容（可选，文本类型）
+- `entry_time`: 录入时间（可选，日期时间类型）
+- `created_at`: 记录创建时间（自动生成，默认使用UTC时间）
 
 ## 错误处理
 
-- 如果文章标题已存在，该文章会被跳过，不会影响其他文章的添加
-- 系统会返回成功添加的文章数量和跳过的重复文章数量
+- 如果文章URL已存在，该文章会被跳过，不会影响其他文章的添加
+- 系统会返回成功添加的文章数量和跳过的重复URL文章数量
 - 所有的时间字段支持多种格式，系统会自动解析
 
 ## 开发说明

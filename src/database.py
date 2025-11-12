@@ -13,7 +13,7 @@ class Essay(Base):
     title = Column(String(500), nullable=False, index=True)
     subtitle = Column(Text, nullable=True)
     author = Column(String(200), nullable=True)
-    url = Column(Text, unique=True, nullable=True, index=True)
+    url = Column(Text, unique=True, nullable=False, index=True)
     content = Column(Text, nullable=True)
     entry_time = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -44,8 +44,8 @@ class DatabaseManager:
         finally:
             session.close()
 
-    def add_essay(self, title: str, subtitle: str = None, author: str = None, url: str = None, content: str = None, entry_time: datetime = None) -> bool:
-        if url and self.essay_exists(url):
+    def add_essay(self, title: str, url: str, subtitle: str = None, author: str = None, content: str = None, entry_time: datetime = None) -> bool:
+        if self.essay_exists(url):
             return False
 
         session = self.get_session()
@@ -64,5 +64,29 @@ class DatabaseManager:
         except Exception as e:
             session.rollback()
             raise e
+        finally:
+            session.close()
+
+    def update_essay_content(self, url: str, content: str) -> bool:
+        """更新文章内容"""
+        session = self.get_session()
+        try:
+            essay = session.query(Essay).filter(Essay.url == url).first()
+            if essay:
+                essay.content = content
+                session.commit()
+                return True
+            return False
+        except Exception as e:
+            session.rollback()
+            raise e
+        finally:
+            session.close()
+
+    def get_essay_by_url(self, url: str):
+        """根据URL获取文章"""
+        session = self.get_session()
+        try:
+            return session.query(Essay).filter(Essay.url == url).first()
         finally:
             session.close()

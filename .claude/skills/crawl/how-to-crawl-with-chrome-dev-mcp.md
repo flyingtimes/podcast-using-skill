@@ -59,3 +59,8 @@ claude --dangerously-skip-permissions -p "打开https://www.theatlantic.com/late
 ```
 claude --dangerously-skip-permissions -p "translate 翻译output文件夹中的所有文件内容为中文，并写入到output/{中文title}.txt" 
 ```
+获取正文内容
+```
+claude --dangerously-skip-permissions -p "根据指引  @README_API.md ，通过接口读取所有记录，对每个记录检查content是否为空，如果为空，则用 skill: crawl
+  访问url，获取正文内容，并将正文内容写入content字段，直到所有content字段都不为空。"
+```
